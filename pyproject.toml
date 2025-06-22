@@ -5,6 +5,7 @@ description = "Flexible LLM model initialization from YAML configuration."
 authors = ["Phragman <a@staphi.com>"]
 license = "MIT"
 packages = [{ include = "langfabric" }]
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"

@@ -13,7 +13,7 @@ class ModelManager:
         self._cache = {}
         self._lock = threading.Lock()
 
-    def get_model(self, model_name: str, *,
+    def load(self, model_name: str, *,
             temperature: Optional[float] = None,
             max_tokens: Optional[int] = None,
             max_retries: Optional[int] = None,
@@ -50,27 +50,22 @@ class ModelManager:
 
         return model
 
-    def has_model(self, model_name: str) -> bool:
-        with self._lock:
-            return model_name in self.model_configs
+    def contains(self, model_name: str) -> bool:
+        return model_name in self.model_configs
 
-    def preload_models(self) -> None:
+    def __contains__(self, model_name: str) -> bool:
+        return self.contains(model_name)
+
+    def preload_all(self) -> None:
         """Force build and cache of all model configs using multiple threads."""
         threads = []
         for model_name in self.model_configs:
-            t = threading.Thread(target=self.get, args=(model_name,))
+            t = threading.Thread(target=self.load, args=(model_name,))
             t.start()
             threads.append(t)
         for t in threads:
             t.join()
 
-    def get_keys(self):
-        return self.model_configs.keys()
-
-    def get_values(self) -> Iterator[Any]:
-        for model_name in self.keys():
-            yield self.get(model_name)
-
-    def model_items(self) -> Iterator[tuple[str, Any]]:
-        for model_name in self.keys():
-            yield (model_name, self.get(model_name))
+    def active(self):
+        with self._lock:
+            return len(self._cache.keys())

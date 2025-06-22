@@ -1,0 +1,10 @@
+- name: gpt35
+  provider: azure_openai
+  model: best_model
+  deployment_name: best_model
+  embeddings_deployment_name: best_model_embed
+  api_version: 2024-05-01-preview
+  endpoint: https://your-endpoint.openai.azure.com
+  api_key: !secret gpt35_key
+  openai_api_type: azure
+  max_tokens: 4096

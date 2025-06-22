@@ -1,0 +1,6 @@
+.gitconfig
+.venv/
+__pycache__/
+seyaml.egg-info/
+build/
+.pytest_cache/

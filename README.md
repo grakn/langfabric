@@ -1,2 +1,2 @@
-# llmfactory
+# langfabric
 LLM Factory Framework

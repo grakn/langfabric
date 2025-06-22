@@ -35,7 +35,7 @@ class ModelManager:
         if not config:
             raise ValueError(f"Model config '{model_name}' not found")
 
-        from .factory import build_model
+        from .fabric import build_model    
         model = build_model(
             config,
             temperature=temperature,

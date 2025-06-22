@@ -26,9 +26,11 @@ def build_model(
     max_retries: int = 2,
     temperature: Optional[float] = None,
     max_tokens: Optional[int] = None,
+    streaming: Optional[bool] = False
 ):
     temperature = temperature if temperature is not None else getattr(config, "temperature", 0.1)
     max_tokens = max_tokens if max_tokens is not None else getattr(config, "max_tokens", 2048)
+    streaming = streaming if streaming is not None else getattr(config, "streaming", False)
 
     if isinstance(config, AzureOpenAIModelConfig):
         return AzureChatOpenAI(
@@ -36,7 +38,7 @@ def build_model(
             temperature=temperature,
             max_tokens=max_tokens,
             max_retries=max_retries,
-            streaming=config.streaming,
+            streaming=streaming,
             openai_api_version=config.api_version,
             azure_endpoint=config.endpoint,
             deployment_name=config.deployment_name,
@@ -51,7 +53,7 @@ def build_model(
             temperature=temperature,
             max_tokens=max_tokens,
             max_retries=max_retries,
-            streaming=config.streaming,
+            streaming=streaming,
             api_key=config.api_key.get_secret_value(),
             openai_api_base=config.api_base,
             openai_api_version=config.api_version,
@@ -88,7 +90,7 @@ def build_model(
             },
             timeout=config.timeout,
         )
-            
+
     elif isinstance(config, AzureMLModelConfig):
         return AzureMLChatOnlineEndpoint(
             endpoint_url=config.endpoint_url,

@@ -13,7 +13,7 @@ class ModelManager:
         self._cache = {}
         self._lock = threading.Lock()
 
-    def get(self, model_name: str, *,
+    def get_model(self, model_name: str, *,
             temperature: Optional[float] = None,
             max_tokens: Optional[int] = None,
             max_retries: Optional[int] = None,
@@ -35,7 +35,7 @@ class ModelManager:
         if not config:
             raise ValueError(f"Model config '{model_name}' not found")
 
-        from .fabric import build_model    
+        from .fabric import build_model
         model = build_model(
             config,
             temperature=temperature,
@@ -50,11 +50,11 @@ class ModelManager:
 
         return model
 
-    def has(self, model_name: str) -> bool:
+    def has_model(self, model_name: str) -> bool:
         with self._lock:
             return model_name in self.model_configs
 
-    def preload(self) -> None:
+    def preload_models(self) -> None:
         """Force build and cache of all model configs using multiple threads."""
         threads = []
         for model_name in self.model_configs:
@@ -64,13 +64,13 @@ class ModelManager:
         for t in threads:
             t.join()
 
-    def keys(self):
+    def get_keys(self):
         return self.model_configs.keys()
 
-    def values(self) -> Iterator[Any]:
+    def get_values(self) -> Iterator[Any]:
         for model_name in self.keys():
             yield self.get(model_name)
 
-    def items(self) -> Iterator[tuple[str, Any]]:
+    def model_items(self) -> Iterator[tuple[str, Any]]:
         for model_name in self.keys():
             yield (model_name, self.get(model_name))

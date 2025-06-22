@@ -7,7 +7,7 @@ class BaseModelConfig(BaseModel):
     model: Optional[str] = None
     max_tokens: Optional[int] = 2048
     temperature: Optional[float] = 0.1
-    streaming: Optional[bool] = True
+    streaming: Optional[bool] = False
 
 
 class AzureOpenAIModelConfig(BaseModelConfig):
@@ -18,7 +18,6 @@ class AzureOpenAIModelConfig(BaseModelConfig):
     api_version: str
     openai_api_type: Optional[str] = "azure"  # override support
     embeddings_deployment_name: Optional[str] = None
-
 
 class OpenAIModelConfig(BaseModelConfig):
     provider: Literal["openai"]

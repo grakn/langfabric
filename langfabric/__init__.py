@@ -13,7 +13,7 @@ from langfabric.schema import (
     ModelConfig,
 )
 
-from .fabric import build_model
+from .fabric import build_model, build_embeddings
 from .manager import ModelManager
 from .loader import load_model_configs, load_models
 
@@ -27,6 +27,7 @@ __all__ = [
     "ModelConfig",
     "ModelManager"
     "build_model",
+    "build_embeddings",
     "load_model_configs"
     "load_models"
 ]

@@ -64,17 +64,17 @@ model_configs = load_model_configs("./models.yaml")
 from langfabric.manager import ModelManager
 
 manager = ModelManager(model_configs)
-model = manager.get("gpt4o")  # Get Azure OpenAI GPT-4o model
+model = manager.get_model("gpt4o")  # Get Azure OpenAI GPT-4o model
 ```
 
 ## 3. Optional preload all models in parallel (multi-threaded)
 ```
-manager.preload()  # Warms up cache in threads for all configs
+manager.preload_models()  # Warms up cache in threads for all configs
 ```
 
 ## 4. Use runtime parameter overrides
 ```
-custom_model = manager.get(
+custom_model = manager.get_model(
     "gpt4o",
     temperature=0.5,
     max_tokens=2048,
@@ -85,7 +85,7 @@ custom_model = manager.get(
 
 ## 5. Iterate over all models
 ```
-for name, model in manager.items():
+for name, model in manager.model_items():
     print(f"{name}: {model}")
 ```
 

@@ -7,7 +7,7 @@ It supports OpenAI, Azure OpenAI, Groq, Ollama, AzureML, and other providers, ma
 
 ## Features
 
-- **Declarative YAML model configs** (with secret support via [seyaml](https://github.com/shvid/seyaml))
+- **Declarative YAML model configs** (with secret support via [seyaml](https://github.com/grakn/seyaml))
 - **Multiple provider support:** OpenAI, Azure OpenAI, Groq, Ollama, AzureML, and more
 - **Thread-safe model caching**
 - **Runtime overrides:** temperature, max tokens, etc.
@@ -25,7 +25,7 @@ pip install langfabric
 Or clone the repo and install locally:
 
 ```
-git clone https://github.com/your-org/langfabric.git
+git clone https://github.com/grakn/langfabric.git
 cd langfabric
 pip install -e .
 ```

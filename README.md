@@ -1,6 +1,6 @@
 # Langfabric
 
-![Unit Tests](https://github.com/grakn/langfabric/actions/workflows/test.yml/badge.svg?branch=main)
+![Unit Tests](https://github.com/grakn/langfabric/actions/workflows/test.yaml/badge.svg?branch=main)
 [![PyPI Downloads](https://static.pepy.tech/badge/langfabric)](https://pepy.tech/projects/langfabric)
 
 **Langfabric** is a flexible Python framework for managing, instantiating, and caching Large Language Model (LLM) instances from YAML configuration files.  
@@ -16,6 +16,7 @@ It supports OpenAI, Azure OpenAI, Groq, Ollama, AzureML, and other providers, ma
 - **Runtime overrides:** temperature, max tokens, etc.
 - **Parallel/preloaded model initialization**
 - **Automatic LangChain model rebuild**
+- **Automatic caching in ModelManager**
 
 ---
 

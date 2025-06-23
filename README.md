@@ -1,5 +1,8 @@
 # Langfabric
 
+![Unit Tests](https://github.com/OWNER/REPO/actions/workflows/test.yml/badge.svg?branch=main)
+[![PyPI Downloads](https://static.pepy.tech/badge/langfabric)](https://pepy.tech/projects/langfabric)
+
 **Langfabric** is a flexible Python framework for managing, instantiating, and caching Large Language Model (LLM) instances from YAML configuration files.  
 It supports OpenAI, Azure OpenAI, Groq, Ollama, AzureML, and other providers, making LLM orchestration and deployment easy, reproducible, and robust.
 

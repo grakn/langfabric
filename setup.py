@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="langfabric",
-    version="0.1.5",
+    version="0.1.6",
     description="Flexible LLM model initialization from YAML configuration.",
     author="Phragman",
     author_email="a@staphi.com",

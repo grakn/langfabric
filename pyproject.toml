@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "langfabric"
-version = "0.1.7"
+version = "0.1.8"
 description = "Flexible LLM model initialization from YAML configuration."
 authors = ["Phragman <a@staphi.com>"]
 license = "MIT"

@@ -31,9 +31,9 @@ def build_model(
 ):
     temperature = temperature or getattr(config, "temperature", None)
     max_tokens = max_tokens or getattr(config, "max_tokens", None)
-    streaming = streaming or getattr(config, "streaming", None)
+    streaming = streaming or getattr(config, "streaming", False)
     request_timeout = request_timeout or getattr(config, "request_timeout", None)
-    verbose = verbose or getattr(config, "verbose", None)
+    verbose = verbose or getattr(config, "verbose", False)
 
     if isinstance(config, AzureOpenAIModelConfig):
         return AzureChatOpenAI(
@@ -145,7 +145,6 @@ def build_embeddings(
             model=config.model,
             api_key=config.api_key.get_secret_value(),
             openai_api_base=config.api_base,
-            openai_api_version=config.api_version,
             chunk_size=chunk_size,
             max_retries=max_retries,
             **kwargs,

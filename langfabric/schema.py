@@ -7,9 +7,9 @@ class BaseModelConfig(BaseModel):
     model: Optional[str] = None
     max_tokens: Optional[int] = None
     temperature: Optional[float] = None
-    streaming: Optional[bool] = None
+    streaming: Optional[bool] = False
     request_timeout: Union[float, Tuple[float, float], Any, None] = None
-    verbose: Optional[bool] = None
+    verbose: Optional[bool] = False
 
 
 class AzureOpenAIModelConfig(BaseModelConfig):

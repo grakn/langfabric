@@ -1,9 +1,8 @@
-from typing import Optional
-
+from typing import Union, Tuple, Literal, Optional, Union, Dict, Any
 
 from langchain_openai import AzureChatOpenAI, ChatOpenAI
 from langchain_groq import ChatGroq
-from langchain_community.chat_models.ollama import ChatOllama
+from langchain_ollama import ChatOllama
 from langchain_community.chat_models.azureml_endpoint import (
     AzureMLChatOnlineEndpoint,
     AzureMLEndpointApiType,
@@ -22,15 +21,19 @@ from langfabric.schema import (
 
 def build_model(
     config: ModelConfig,
-    json_response: bool = False,
-    max_retries: int = 2,
+    json_response: Optional[bool] = None,
+    max_retries: Optional[int] = None,
     temperature: Optional[float] = None,
     max_tokens: Optional[int] = None,
-    streaming: Optional[bool] = False
+    streaming: Optional[bool] = None,
+    request_timeout: Union[float, Tuple[float, float], Any, None] = None,
+    verbose: Optional[bool] = None,
 ):
-    temperature = temperature if temperature is not None else getattr(config, "temperature", 0.1)
-    max_tokens = max_tokens if max_tokens is not None else getattr(config, "max_tokens", 2048)
-    streaming = streaming if streaming is not None else getattr(config, "streaming", False)
+    temperature = temperature or getattr(config, "temperature", None)
+    max_tokens = max_tokens or getattr(config, "max_tokens", None)
+    streaming = streaming or getattr(config, "streaming", None)
+    request_timeout = request_timeout or getattr(config, "request_timeout", None)
+    verbose = verbose or getattr(config, "verbose", None)
 
     if isinstance(config, AzureOpenAIModelConfig):
         return AzureChatOpenAI(
@@ -39,6 +42,8 @@ def build_model(
             max_tokens=max_tokens,
             max_retries=max_retries,
             streaming=streaming,
+            request_timeout=request_timeout,
+            verbose=verbose,
             openai_api_version=config.api_version,
             azure_endpoint=config.endpoint,
             deployment_name=config.deployment_name,
@@ -54,9 +59,11 @@ def build_model(
             max_tokens=max_tokens,
             max_retries=max_retries,
             streaming=streaming,
+            request_timeout=request_timeout,
+            verbose=verbose,
             api_key=config.api_key.get_secret_value(),
             openai_api_base=config.api_base,
-            openai_api_version=config.api_version,
+            openai_organization=config.organization,
             model_kwargs={"response_format": {"type": "json_object"}} if json_response else {},
         )
 
@@ -105,13 +112,13 @@ def build_model(
             },
         )
 
-    raise ValueError(f"Unsupported provider type: {config}")
+    raise ValueError(f"Unsupported provider type: {type(config)}")
 
 
 def build_embeddings(
     config,
-    chunk_size: int = 1,
-    max_retries: int = 2,
+    chunk_size: Optional[int] = 1,
+    max_retries: Optional[int] = 2,
     **kwargs
 ):
     """
@@ -182,4 +189,3 @@ def build_embeddings(
     # --- Not supported ---
     else:
         raise ValueError(f"Embeddings not supported for model type: {type(config)}")
-    

@@ -6,7 +6,7 @@ def rebuild_langchain_models():
     # Import all models that require rebuild
     from langchain_openai import AzureChatOpenAI
     from langchain_community.chat_models.azureml_endpoint import AzureMLChatOnlineEndpoint
-    from langchain_community.chat_models.ollama import ChatOllama
+    from langchain_ollama import ChatOllama
     from langchain_groq import ChatGroq
 
     # Rebuild models to resolve forward refs

@@ -1,13 +1,15 @@
-from typing import Literal, Optional, Union, Dict
+from typing import Union, Tuple, Literal, Optional, Union, Dict, Any
 from pydantic import BaseModel, SecretStr
 
 
 class BaseModelConfig(BaseModel):
     name: str
     model: Optional[str] = None
-    max_tokens: Optional[int] = 2048
-    temperature: Optional[float] = 0.1
-    streaming: Optional[bool] = False
+    max_tokens: Optional[int] = None
+    temperature: Optional[float] = None
+    streaming: Optional[bool] = None
+    request_timeout: Union[float, Tuple[float, float], Any, None] = None
+    verbose: Optional[bool] = None
 
 
 class AzureOpenAIModelConfig(BaseModelConfig):
@@ -19,12 +21,12 @@ class AzureOpenAIModelConfig(BaseModelConfig):
     openai_api_type: Optional[str] = "azure"  # override support
     embeddings_deployment_name: Optional[str] = None
 
+
 class OpenAIModelConfig(BaseModelConfig):
     provider: Literal["openai"]
     api_key: SecretStr
     api_base: Optional[str] = None
-    api_version: Optional[str] = None
-
+    organization: Optional[str] = None
 
 class GroqModelConfig(BaseModelConfig):
     provider: Literal["groq"]

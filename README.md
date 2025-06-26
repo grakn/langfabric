@@ -47,7 +47,8 @@ pip install -e .
   api_version: 2024-06-01-preview
   max_tokens: 4096
   temperature: 0.1
-- name: ollama
+
+- name: llama3
   provider: ollama
   model: llama3
   max_tokens: 4096

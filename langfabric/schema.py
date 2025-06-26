@@ -35,7 +35,7 @@ class GroqModelConfig(BaseModelConfig):
 
 class OllamaModelConfig(BaseModelConfig):
     provider: Literal["ollama"]
-    local: Optional[bool] = True
+    base_url: Optional[str] = "http://localhost:11434"
 
 
 class DeepSeekModelConfig(BaseModelConfig):

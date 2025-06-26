@@ -79,6 +79,7 @@ def build_model(
     elif isinstance(config, OllamaModelConfig):
         return ChatOllama(
             model=getattr(config, "model", config.name),
+            base_url=config.base_url,
             temperature=temperature,
         )
 
@@ -167,12 +168,12 @@ def build_embeddings(
     # --- Ollama (if supported) ---
     elif isinstance(config, OllamaModelConfig):
         try:
-            from langchain_community.embeddings.ollama import OllamaEmbeddings
+            from langchain_ollama import OllamaEmbeddings
         except ImportError:
             raise ImportError("Install langchain-community for Ollama embeddings support.")
         return OllamaEmbeddings(
             model=config.model or config.name,
-            chunk_size=chunk_size,
+            base_url=config.base_url,
             **kwargs,
         )
 

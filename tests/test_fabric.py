@@ -56,7 +56,7 @@ def test_build_ollama_embeddings():
         provider="ollama",
         model="ollama-embed"
     )
-    with patch("langchain_community.embeddings.ollama.OllamaEmbeddings") as mock_embed:
+    with patch("langchain_ollama.OllamaEmbeddings") as mock_embed:
         mock_instance = MagicMock()
         mock_embed.return_value = mock_instance
 
